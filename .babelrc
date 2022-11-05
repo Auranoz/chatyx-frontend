@@ -1,0 +1,48 @@
+{
+    "env": {
+        "development": {
+            "plugins": [
+                [
+                    "babel-plugin-styled-components",
+                    {
+                        "displayName": true,
+                        "minify": false,
+                        "transpileTemplateLiterals": true,
+                        "pure": true
+                    }
+                ]
+            ]
+        },
+        "production": {
+            "plugins": [
+                [
+                    "babel-plugin-styled-components",
+                    {
+                        "displayName": true,
+                        "minify": true,
+                        "transpileTemplateLiterals": true,
+                        "pure": true
+                    }
+                ]
+            ]
+        }
+    },
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "corejs": 3,
+                "modules": false,
+                "useBuiltIns": "usage",
+                "shippedProposals": true
+            }
+        ],
+        "@babel/preset-react",
+        [
+            "@babel/preset-typescript"
+        ]
+    ],
+    "plugins": [
+        "@babel/plugin-transform-runtime"
+    ]
+}

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { CssBaseline } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
@@ -15,7 +14,6 @@ const root = createRoot(node);
 root.render(
     <Provider store={store}>
         <BrowserRouter>
-            <CssBaseline />
             <App />
         </BrowserRouter>
     </Provider>

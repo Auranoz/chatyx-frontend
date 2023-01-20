@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -19,9 +20,7 @@ const getOptimization = () => {
     };
 
     if (isProd) {
-        config.minimizer = [
-            new TerserPlugin()
-        ];
+        config.minimizer = [new TerserPlugin()];
     }
 
     return config;
@@ -60,7 +59,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'ChatyX',
             minify: isProd,
-            favicon: './src/assets/favicon.ico'
+            favicon: './src/assets/images/favicon.ico'
         })
     ].concat(
         isDev

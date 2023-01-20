@@ -1,11 +1,17 @@
 {
     "parser": "@typescript-eslint/parser",
-    "extends": ["airbnb", "airbnb-typescript"],
+    "extends": [
+        "airbnb",
+        "airbnb-typescript",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
     "env": {
         "browser": true,
         "es6": true
     },
-    "plugins": ["react", "@typescript-eslint"],
+    "plugins": ["react", "@typescript-eslint", "prettier", "import", "jsx-a11y"],
     "ecmaFeatures": {
         "jsx": true
     },
@@ -13,8 +19,8 @@
         "project": "./tsconfig.json"
     },
     "rules": {
+        "no-param-reassign": 0,
         "@typescript-eslint/indent": ["error", 4],
-        "@typescript-eslint/comma-dangle": ["error", "never"],
         "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],

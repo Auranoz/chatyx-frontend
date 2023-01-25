@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "description": "ChatyX app",
     "scripts": {
-        "start": "cross-env NODE_ENV=development CHATYX_DEV_PORT=9000 webpack serve",
+        "start": "cross-env NODE_ENV=development CHATYX_DEV_PORT=3000 webpack serve",
         "build": "cross-env NODE_ENV=production webpack",
         "dev": "cross-env NODE_ENV=development webpack",
-        "lint":  "eslint --debug src/",
+        "lint": "eslint --debug src/",
         "lint:write": "eslint --debug src/ --fix",
         "prettier": "prettier --write src/**/*.{ts,tsx}"
     },
@@ -16,7 +16,10 @@
         }
     },
     "lint-staged": {
-        "*.(ts|tsx)": ["npm run lint:write", "git add"]
+        "*.(ts|tsx)": [
+            "npm run lint:write",
+            "git add"
+        ]
     },
     "author": "Korchagin Nikolay",
     "license": "ISC",
@@ -65,6 +68,7 @@
         "webpack-notifier": "^1.15.0"
     },
     "dependencies": {
+        "@fingerprintjs/fingerprintjs": "^3.4.0",
         "@mui/icons-material": "^5.10.9",
         "@mui/material": "^5.10.11",
         "@mui/styled-engine-sc": "^5.10.6",

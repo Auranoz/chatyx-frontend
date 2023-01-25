@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import store from './store';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const node = document.createElement('div');
 node.id = 'app';
@@ -13,8 +14,10 @@ document.body.appendChild(node);
 const root = createRoot(node);
 root.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <ErrorBoundary>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </ErrorBoundary>
     </Provider>
 );

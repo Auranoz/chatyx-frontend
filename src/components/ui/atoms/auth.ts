@@ -7,7 +7,8 @@ export const AuthBox = styled(Box)`
     flex-direction: column;
     align-items: center;
     margin: 8rem auto 0;
-    width: 30%;
+    width: fit-content;
+    min-width: 30%;
 
     > div {
         margin-bottom: 1rem;

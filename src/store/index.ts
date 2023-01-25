@@ -1,12 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { authReducer } from './reducers/sign-in-slice';
+
+import apiSlice from './api-slice';
+import { authSignInReducer } from '../features/Auth/AuthSignInPage/auth-sign-in-slice';
+import { authFingerprintReducer } from '../features/Auth/auth-fingerprint-slice';
 
 const rootReducer = combineReducers({
-    authSlice: authReducer
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    authSlice: authSignInReducer,
+    fingerprintSlice: authFingerprintReducer
 });
 
 const store = configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware)
 });
 
 export default store;

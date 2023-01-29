@@ -6,15 +6,16 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
 import Chat from 'assets/images/chat.png';
-import { AuthBox, AvatarContainer, NewUserBox } from 'components/ui/atoms/auth';
-import useAppActions from 'hooks/useAppActions';
-import useAppSelector from 'hooks/useAppSelector';
-import { AuthInputData, SignInState } from 'features/typings';
-import { useSignInMutation } from './auth-sign-in-api';
+import { AuthBox, AvatarContainer, NewUserBox } from 'entities/ui/auth';
+import useActions from 'shared/hooks/useActions';
+import useAppSelector from 'shared/hooks/useAppSelector';
+import { AuthInputData, SignInState } from '../consts';
+import { useSignInMutation } from '../api';
+import { signInActions } from '../model';
 
-const AuthSignInPage: React.FC = () => {
-    const { handleInputLogin, handleInputPassword } = useAppActions();
-    const { username, password } = useAppSelector(state => state.authSlice);
+const SignInPage: React.FC = () => {
+    const { handleInputLogin, handleInputPassword } = useActions(signInActions);
+    const { username, password } = useAppSelector(state => state.signInSlice);
     const fingerprint = useAppSelector(state => state.fingerprintSlice);
     const [fetchSignIn] = useSignInMutation();
 
@@ -64,4 +65,4 @@ const AuthSignInPage: React.FC = () => {
     );
 };
 
-export default AuthSignInPage;
+export default SignInPage;

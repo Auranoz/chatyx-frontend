@@ -1,5 +1,5 @@
-import apiSlice from 'store/api-slice';
-import { SignInResponse, SignInState, AuthInputData } from 'features/typings';
+import apiSlice from 'shared/api';
+import { SignInResponse, SignInState, AuthInputData } from '../consts';
 
 export const authSignInApi = apiSlice.injectEndpoints({
     endpoints: build => ({

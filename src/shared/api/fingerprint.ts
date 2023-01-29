@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const authFingerprintSlice = createSlice({
+const fingerprintSlice = createSlice({
     name: 'fingerprintSlice',
     initialState: '',
     reducers: {
@@ -8,5 +8,5 @@ const authFingerprintSlice = createSlice({
     }
 });
 
-export const authFingerprintActions = authFingerprintSlice.actions;
-export const authFingerprintReducer = authFingerprintSlice.reducer;
+export const fingerprintActions = fingerprintSlice.actions;
+export const fingerprintReducer = fingerprintSlice.reducer;

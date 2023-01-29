@@ -23,7 +23,6 @@
         "no-param-reassign": 0,
         "no-restricted-exports": 0,
         "import/export": 0,
-        "@typescript-eslint/indent": ["error", 4],
         "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],

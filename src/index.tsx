@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './App';
-import store from './store';
-import ErrorBoundary from './components/ErrorBoundary';
+import App from 'app';
+import { store } from './app/store';
+import ErrorBoundary from './shared/ui/ErrorBoundary';
 
 const node = document.createElement('div');
 node.id = 'app';

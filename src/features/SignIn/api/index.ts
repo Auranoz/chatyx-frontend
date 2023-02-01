@@ -1,7 +1,8 @@
 import apiSlice from 'shared/api';
-import { SignInResponse, SignInState, AuthInputData } from '../consts';
+import { AuthInputData } from 'entities/AuthCard';
+import { SignInResponse, SignInState } from '../consts';
 
-export const authSignInApi = apiSlice.injectEndpoints({
+export const signInApi = apiSlice.injectEndpoints({
     endpoints: build => ({
         signIn: build.mutation<SignInResponse, AuthInputData<SignInState>>({
             query: params => ({
@@ -28,4 +29,4 @@ export const authSignInApi = apiSlice.injectEndpoints({
     })
 });
 
-export const { useSignInMutation } = authSignInApi;
+export const { useSignInMutation } = signInApi;

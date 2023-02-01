@@ -59,7 +59,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'ChatyX',
             minify: isProd,
-            favicon: './src/assets/images/favicon.ico'
+            favicon: './src/shared/assets/images/favicon.ico'
         })
     ].concat(
         isDev

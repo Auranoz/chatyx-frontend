@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import apiSlice, { fingerprintReducer } from 'shared/api';
-import { signInReducer } from 'pages';
+import { signInReducer } from 'features/SignIn';
+import { signUpReducer } from 'features/SignUp';
 
 const rootReducer = combineReducers({
     [apiSlice.reducerPath]: apiSlice.reducer,
     signInSlice: signInReducer,
+    signUpSlice: signUpReducer,
     fingerprintSlice: fingerprintReducer
 });
 

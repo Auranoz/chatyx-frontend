@@ -34,7 +34,8 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: isProd ? '[chunkhash].js' : '[name]_[chunkhash].js'
+        filename: isProd ? '[chunkhash].js' : '[name]_[chunkhash].js',
+        publicPath: '/'
     },
     optimization: getOptimization(),
     resolve: {
@@ -49,6 +50,7 @@ module.exports = {
         port: devServerPort,
         compress: true,
         hot: isDev,
+        historyApiFallback: true,
         static: {
             directory: path.join(__dirname, './dist')
         }

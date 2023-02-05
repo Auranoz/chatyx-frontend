@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from 'app';
 import { store } from './app/store';
-import ErrorBoundary from './shared/ui/ErrorBoundary';
+import ErrorBoundary from './shared/ui/error-boundary';
 
 const node = document.createElement('div');
 node.id = 'app';

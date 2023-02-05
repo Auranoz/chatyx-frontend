@@ -2,8 +2,8 @@ import * as React from 'react';
 import { CssBaseline } from '@mui/material';
 import fingerPrint from '@fingerprintjs/fingerprintjs';
 
-import useActions from 'shared/hooks/useActions';
-import { fingerprintActions } from 'shared/api';
+import { useActions } from 'shared/hooks';
+import { fingerprintActions } from 'entities/user';
 import Routing from 'pages';
 
 const App = () => {

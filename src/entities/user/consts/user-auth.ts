@@ -1,6 +1,6 @@
-export interface AuthInputData<T> {
+export interface AuthInputData<T = undefined> {
     fingerprint: string;
-    authData: T;
+    authData?: T;
 }
 
 export interface UserLogin {

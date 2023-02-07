@@ -12,17 +12,14 @@ export const signInApi = apiSlice.injectEndpoints({
                 headers: { 'X-Fingerprint': params.fingerprint }
             })
         }),
-        refresh: build.mutation<SignInResponse, AuthInputData<string>>({
+        refresh: build.mutation<SignInResponse, AuthInputData>({
             query: params => ({
                 url: 'auth/refresh',
                 method: 'POST',
-                body: {
-                    refresh_token: params.authData
-                },
                 headers: { 'X-Fingerprint': params.fingerprint }
             })
         })
     })
 });
 
-export const { useSignInMutation } = signInApi;
+export const { useSignInMutation, useRefreshMutation } = signInApi;

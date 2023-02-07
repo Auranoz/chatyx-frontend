@@ -10,8 +10,10 @@ const ChatsBox: React.FC = () => {
     const [fetchChatList, { data, isLoading }] = useLazyGetChatsQuery();
 
     React.useEffect(() => {
-        fetchChatList(token);
-    }, []);
+        if (token) {
+            fetchChatList(token);
+        }
+    }, [token]);
 
     if (isLoading) {
         // Return skeleton

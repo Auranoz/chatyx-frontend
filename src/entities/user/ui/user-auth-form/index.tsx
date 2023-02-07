@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 
 import ImageContent, { ImageContentProps } from './image-content';
@@ -11,13 +12,18 @@ export const UserAuthForm: React.FC<PropsWithChildren<AuthCardProps>> = ({
     bottomLeft,
     bottomRight,
     children
-}) => (
-    <AuthBox>
-        <ImageContent imageLabel={imageLabel} />
-        <ContentWrapper>{children}</ContentWrapper>
-        <BottomContent bottomLeft={bottomLeft} bottomRight={bottomRight} />
-    </AuthBox>
-);
+}) => {
+    const location = useLocation();
+
+    return (
+        <AuthBox>
+            <ImageContent imageLabel={imageLabel} />
+            {!!location?.state?.msg && <UnAuthMsg>{location.state.msg}</UnAuthMsg>}
+            <ContentWrapper>{children}</ContentWrapper>
+            <BottomContent bottomLeft={bottomLeft} bottomRight={bottomRight} />
+        </AuthBox>
+    );
+};
 
 const AuthBox = styled('div')`
     display: flex;
@@ -39,4 +45,9 @@ const ContentWrapper = styled('div')`
     > div:last-child {
         margin-bottom: 0;
     }
+`;
+
+const UnAuthMsg = styled('div')`
+    color: orangered;
+    margin-bottom: 1rem;
 `;

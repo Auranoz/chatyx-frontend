@@ -19,7 +19,7 @@ const ImageContent: React.FC<ImageContentProps> = ({ imageLabel }) => (
 );
 
 const ContentStyle = styled('div')`
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 `;
 
 const ImageContainerStyle = styled(Avatar)`

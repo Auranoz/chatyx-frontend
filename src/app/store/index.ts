@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
     chatCreateSlice: chatCreateReducer
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware)

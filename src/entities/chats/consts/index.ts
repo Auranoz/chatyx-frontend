@@ -1,7 +1,7 @@
 export interface ChatInfo {
     id: string;
     name: string;
-    description: string;
+    description?: string;
     createdAt: string;
     updatedAt: string;
     creatorId: string;

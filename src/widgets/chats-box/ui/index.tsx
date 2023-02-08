@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import { camelizeKeys } from 'humps';
 
-import ChatCreate from 'features/chat-create';
+import ChatCreate, { ChatResponseItem } from 'features/chat-create';
 import { useAppSelector } from 'shared/hooks';
+import { ChatRow } from 'entities/chats';
 import { useLazyGetChatsQuery } from '../api';
 
 const ChatsBox: React.FC = () => {
@@ -13,7 +15,7 @@ const ChatsBox: React.FC = () => {
         if (token) {
             fetchChatList(token);
         }
-    }, [token]);
+    }, []);
 
     if (isLoading) {
         // Return skeleton
@@ -22,9 +24,14 @@ const ChatsBox: React.FC = () => {
 
     return (
         <Layout>
-            {!!data && data.list.length === 0
-                ? 'No chats :('
-                : !!data && data.list.map(chat => chat.name)}
+            <ChatListWrapper>
+                {!!data && data.list.length === 0
+                    ? 'No chats :('
+                    : !!data &&
+                      data.list.map(chat => (
+                          <ChatRow key={chat.id} chat={camelizeKeys<ChatResponseItem>(chat)} />
+                      ))}
+            </ChatListWrapper>
             <ChatCreateWrapper>
                 <ChatCreate onRefreshChats={() => fetchChatList(token)} />
             </ChatCreateWrapper>
@@ -36,10 +43,16 @@ export default ChatsBox;
 
 const Layout = styled('div')`
     grid-area: chats-box;
-    display: flex;
     position: relative;
 
-    border: 1px solid black;
+    border-left: 1px solid gray;
+    background-color: lightgray;
+`;
+
+const ChatListWrapper = styled('div')`
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
 `;
 
 const ChatCreateWrapper = styled('div')`

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
+import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -42,14 +42,9 @@ const ChatCreate: React.FC<ChatCreateProps> = ({ onRefreshChats }) => {
     return (
         <>
             <Tooltip title="Create new chat">
-                <CreateChatButton
-                    aria-label="add"
-                    color="success"
-                    size="large"
-                    onClick={handleDialogOpen}
-                >
+                <Fab aria-label="add" color="primary" size="large" onClick={handleDialogOpen}>
                     <AddIcon />
-                </CreateChatButton>
+                </Fab>
             </Tooltip>
             <Dialog open={isOpenDialog} onClose={handleDialogClose}>
                 <DialogTitle>Create a chat</DialogTitle>
@@ -86,9 +81,9 @@ const ChatCreate: React.FC<ChatCreateProps> = ({ onRefreshChats }) => {
 
 export default ChatCreate;
 
-const CreateChatButton = styled(IconButton)`
-    border: 1px solid green;
-` as typeof IconButton;
+// const CreateChatButton = styled(IconButton)`
+//     border: 1px solid green;
+// ` as typeof IconButton;
 
 const DialogContentWithIndents = styled(DialogContent)`
     > div {

@@ -1,13 +1,7 @@
-import { CreateChatParams } from 'entities/chats';
+import { ChatInfo, CreateChatParams } from 'entities/chats';
+import { Decamelized } from 'humps';
 
-export interface ChatResponseItem {
-    id: string;
-    name: string;
-    description: string;
-    created_at: string;
-    updated_at: string;
-    creator_id: string;
-}
+export type ChatResponseItem = Decamelized<ChatInfo>;
 
 export interface CreateChatInputParams extends CreateChatParams {
     token: string;

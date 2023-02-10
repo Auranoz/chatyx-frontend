@@ -23,6 +23,7 @@
         "noErrorTruncation": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "esModuleInterop": true,
         "paths": {
             "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
         }

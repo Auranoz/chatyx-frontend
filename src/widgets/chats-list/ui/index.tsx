@@ -7,7 +7,7 @@ import { useAppSelector } from 'shared/hooks';
 import { ChatRow } from 'entities/chats';
 import { useLazyGetChatsQuery } from '../api';
 
-const ChatsBox: React.FC = () => {
+const ChatsList: React.FC = () => {
     const token = useAppSelector(state => state.userAuthSlice);
     const [fetchChatList, { data, isLoading }] = useLazyGetChatsQuery();
 
@@ -39,7 +39,7 @@ const ChatsBox: React.FC = () => {
     );
 };
 
-export default ChatsBox;
+export default ChatsList;
 
 const Layout = styled('div')`
     grid-area: chats-box;

@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import { camelizeKeys } from 'humps';
+import { styled } from '@mui/material/styles';
+import Collapse from '@mui/material/Collapse';
+import { TransitionGroup } from 'react-transition-group';
 
 import ChatCreate, { ChatResponseItem } from 'features/chat-create';
-import { useAppSelector } from 'shared/hooks';
-import { ChatRow } from 'entities/chats';
+import { useActions, useAppSelector } from 'shared/hooks';
+import { ChatRow, selectedChatActions } from 'entities/chats';
 import { useLazyGetChatsQuery } from '../api';
 
 const ChatsList: React.FC = () => {
     const token = useAppSelector(state => state.userAuthSlice);
+    const { selectChat } = useActions(selectedChatActions);
+    const selectedChat = useAppSelector(state => state.selectedChatSlice);
     const [fetchChatList, { data, isLoading }] = useLazyGetChatsQuery();
 
     React.useEffect(() => {
@@ -22,15 +26,25 @@ const ChatsList: React.FC = () => {
         return <>Loading...</>;
     }
 
+    // TODO: Add reset selected chat by Escape
+
     return (
         <Layout>
             <ChatListWrapper>
-                {!!data && data.list.length === 0
-                    ? 'No chats :('
-                    : !!data &&
-                      data.list.map(chat => (
-                          <ChatRow key={chat.id} chat={camelizeKeys<ChatResponseItem>(chat)} />
-                      ))}
+                <TransitionGroup>
+                    {!!data && data.list.length === 0
+                        ? 'No chats :('
+                        : !!data &&
+                          data.list.map(chat => (
+                              <Collapse key={chat.id}>
+                                  <ChatRow
+                                      isSelected={selectedChat.id === chat.id}
+                                      chat={camelizeKeys<ChatResponseItem>(chat)}
+                                      onChatRowClick={selectChat}
+                                  />
+                              </Collapse>
+                          ))}
+                </TransitionGroup>
             </ChatListWrapper>
             <ChatCreateWrapper>
                 <ChatCreate onRefreshChats={() => fetchChatList(token)} />
@@ -42,10 +56,12 @@ const ChatsList: React.FC = () => {
 export default ChatsList;
 
 const Layout = styled('div')`
-    grid-area: chats-box;
+    grid-area: chats-list;
+    max-height: 100vh;
     position: relative;
 
-    border-left: 1px solid gray;
+    border-right: 1px solid #9e9e9e;
+    border-radius: 0.5rem;
     background-color: lightgray;
 `;
 

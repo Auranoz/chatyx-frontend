@@ -3,10 +3,9 @@ import { CssBaseline } from '@mui/material';
 import fingerPrint from '@fingerprintjs/fingerprintjs';
 
 import { useActions, useAppSelector } from 'shared/hooks';
-import { fingerprintActions, userTokenAction } from 'entities/user';
+import { fingerprintActions, userTokenAction, calculateRefreshTimeout } from 'entities/user';
 import Routing from 'pages';
 import { useRefreshMutation } from 'features/sign-in';
-import { calculateRefreshTimeout } from '../entities/user/utils/parse-token';
 
 const App = () => {
     const fingerprint = useAppSelector(state => state.fingerprintSlice);
@@ -16,10 +15,20 @@ const App = () => {
 
     React.useEffect(() => {
         (async () => {
-            const fp = await fingerPrint.load();
-            const { visitorId } = await fp.get();
-            setFingerprint(visitorId);
-            fetchRefresh({ fingerprint: visitorId });
+            let uniqueKey: string;
+            const fpLocalStorage = localStorage.getItem('fingerprint');
+
+            if (!fpLocalStorage) {
+                const fp = await fingerPrint.load();
+                const fpData = await fp.get();
+                uniqueKey = fpData.visitorId;
+                localStorage.setItem('fingerprint', uniqueKey);
+            } else {
+                uniqueKey = fpLocalStorage;
+            }
+
+            setFingerprint(uniqueKey);
+            fetchRefresh({ fingerprint: uniqueKey });
         })();
     }, []);
 

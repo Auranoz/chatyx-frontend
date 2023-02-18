@@ -39,6 +39,7 @@
         "@types/react-router-dom": "^5.3.3",
         "@types/styled-components": "^5.1.26",
         "@types/webpack": "^5.28.0",
+        "@types/websocket": "^1.0.5",
         "@typescript-eslint/eslint-plugin": "^5.42.0",
         "@typescript-eslint/parser": "^5.42.0",
         "babel-loader": "^8.2.5",
@@ -84,6 +85,7 @@
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.4",
         "react-router-dom": "^6.4.2",
+        "react-transition-group": "^4.4.5",
         "styled-components": "^5.3.6",
         "ts-proto": "^1.139.0"
     }

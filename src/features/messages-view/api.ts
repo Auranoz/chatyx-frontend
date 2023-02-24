@@ -6,8 +6,17 @@ import { ApiChatMembersResponse } from './consts/chat-members';
 const chatMessages = apiSlice.injectEndpoints({
     endpoints: build => ({
         getChatMessages: build.query<ApiChatMessagesResponse, AuthRequest<ApiChatMessagesParams>>({
-            query: ({ token, data: { chatId, offset = 0, limit = 50 } }) => ({
-                url: `chats/${chatId}/messages?limit=${limit}&offset=${offset}`,
+            query: ({
+                token,
+                data: {
+                    chatId,
+                    offset = 0,
+                    limit = 50,
+                    offsetDate = new Date().toISOString(),
+                    direction = 'older'
+                }
+            }) => ({
+                url: `chats/${chatId}/messages?limit=${limit}&offset=${offset}&offset_date=${offsetDate}&direction=${direction}`,
                 headers: { Authorization: `Bearer ${token}` }
             })
         }),

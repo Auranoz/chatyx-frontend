@@ -5,9 +5,11 @@ export interface ApiChatMessagesParams {
     chatId: string;
     limit?: number;
     offset?: number;
+    offsetDate?: string;
+    direction?: 'older' | 'newer';
 }
 
-type ApiMessage = Decamelized<Message>;
+export type ApiMessage = Decamelized<Message>;
 
 export interface ApiChatMessagesResponse {
     has_next: boolean;

@@ -11,7 +11,7 @@ const chatMessages = apiSlice.injectEndpoints({
                 data: {
                     chatId,
                     offset = 0,
-                    limit = 50,
+                    limit = 20,
                     offsetDate = new Date().toISOString(),
                     direction = 'older'
                 }

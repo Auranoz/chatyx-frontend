@@ -27,13 +27,6 @@ const Conversation: React.FC = () => {
         }
     }, [isSuccess]);
 
-    // const testMsg: CreateMessageDTO = {
-    //     chatId: '690e86ea-60c6-4bdd-872f-7b7b30bb7fdf',
-    //     text: 'hello another world!'
-    // };
-    // const cb = () => sendSocketMessage(testMsg);
-    // console.log(data);
-
     return <Layout>{content}</Layout>;
 };
 

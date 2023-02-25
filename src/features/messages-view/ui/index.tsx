@@ -1,18 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '@mui/material/styles';
+import { Decamelized } from 'humps';
 
 import { useAppSelector } from 'shared/hooks';
 import { parseToken } from 'entities/user';
-import { MessageCenter, useListenSocketChannelQuery } from 'entities/message';
+import { Message, MessageCenter, useListenSocketChannelQuery } from 'entities/message';
 import { useLazyGetChatMembersQuery, useLazyGetChatMessagesQuery } from '../api';
-import MessageItem from './message-item';
 import { buildListMessages } from '../utils';
+import MessageItem from './message-item';
 
 interface MessageViewProps {
     selectedChatId: string;
 }
 
 const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
+    const [currOffset, setCurrOffset] = useState(0);
+    const [messagesList, setMessagesList] = useState<Decamelized<Message>[]>([]);
+    const [isUpScrolling, setUpScrolling] = useState(false);
+    const [idScrollMsg, setIdScrollMsg] = useState<string | undefined>();
+
     const token = useAppSelector(state => state.userAuthSlice);
     const [getChatMessages, { data: apiMessages, isLoading: isLoadingMessages }] =
         useLazyGetChatMessagesQuery();
@@ -21,21 +27,71 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
     const { data: socketMessages } = useListenSocketChannelQuery();
     const currentChatSocketMessages = socketMessages?.filter(msg => msg.chatId === selectedChatId);
 
-    const userId = parseToken(token).sub;
-    const contentMessages = buildListMessages(apiMessages?.result, currentChatSocketMessages);
     const messagesEndRef = useRef<null | HTMLDivElement>();
+    const listInnerRef = useRef<null | HTMLDivElement>();
+    const messageScrollRef = useRef<null | HTMLDivElement>();
+
+    const userId = parseToken(token).sub;
+    const contentMessages = buildListMessages(messagesList, currentChatSocketMessages);
 
     useEffect(() => {
+        changeChatReset();
         getChatMessages({ token, data: { chatId: selectedChatId } });
         getChatMembers({ token, data: selectedChatId });
     }, [selectedChatId]);
 
     useEffect(() => {
-        scrollToBottom();
+        if (apiMessages?.result && apiMessages.result.length) {
+            setIdScrollMsg(apiMessages.result.at(0)?.id);
+            setMessagesList([...messagesList, ...apiMessages.result]);
+        }
+    }, [apiMessages]);
+
+    useEffect(() => {
+        if (!isUpScrolling) {
+            scrollToBottom('auto');
+        }
     }, [contentMessages]);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
+    useEffect(() => {
+        if (isUpScrolling) {
+            messageScrollRef.current?.scrollIntoView({ behavior: 'auto' });
+        }
+    }, [idScrollMsg]);
+
+    useEffect(() => {
+        if (currOffset && isUpScrolling && !!apiMessages?.has_next) {
+            getChatMessages({ token, data: { chatId: selectedChatId, offset: currOffset } });
+        }
+    }, [currOffset, messagesList]);
+
+    const changeChatReset = () => {
+        setCurrOffset(0);
+        setMessagesList([]);
+        setUpScrolling(false);
+    };
+
+    const scrollToBottom = (behavior: ScrollBehavior) => {
+        messagesEndRef.current?.scrollIntoView({ behavior });
+    };
+
+    const onScroll = () => {
+        if (listInnerRef.current) {
+            const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+
+            if (
+                Math.floor(scrollTop) + clientHeight === scrollHeight ||
+                Math.ceil(scrollTop) + clientHeight === scrollHeight
+            ) {
+                setUpScrolling(false);
+            } else {
+                setUpScrolling(true);
+            }
+
+            if (scrollHeight !== clientHeight && scrollTop === 0 && apiMessages?.has_next) {
+                setCurrOffset(currOffset + 20);
+            }
+        }
     };
 
     if (!apiMessages || isLoadingMessages || !membersData || isLoadingMembers) {
@@ -43,10 +99,20 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
     }
 
     return (
-        <Layout>
+        <Layout ref={listInnerRef} onScroll={onScroll}>
             {contentMessages.length > 0 ? (
                 contentMessages.map(msg => (
-                    <MessageItem key={msg.id} message={msg} members={membersData} userId={userId} />
+                    <>
+                        <MessageItem
+                            key={msg.id}
+                            message={msg}
+                            members={membersData}
+                            userId={userId}
+                        />
+                        {msg.id === idScrollMsg && (
+                            <MessagesEnd key={`scroll-${msg.id}`} ref={messageScrollRef} />
+                        )}
+                    </>
                 ))
             ) : (
                 <MessageCenter>There is no messages yet</MessageCenter>

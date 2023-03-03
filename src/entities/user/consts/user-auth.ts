@@ -1,3 +1,5 @@
+import { UserInfo } from './user-info';
+
 export interface AuthInputData<T = undefined> {
     fingerprint: string;
     authData?: T;
@@ -8,12 +10,6 @@ export interface UserLogin {
     password: string;
 }
 
-export interface UserRegister {
-    username: string;
+export type UserRegister = Omit<UserInfo, 'id' | 'createdAt' | 'updatedAt'> & {
     password: string;
-    email: string;
-    firstName?: string;
-    lastName?: string;
-    birthDate?: string;
-    department?: string;
-}
+};

@@ -13,12 +13,12 @@ interface MessageItemProps {
 const MessageItem: React.FC<MessageItemProps> = ({ message, members, userId }) => {
     const timeSend = performTimeSend(message.createdAt);
 
-    if (message.senderId === userId) {
-        return <MessageRowRight key={message.id} text={message.text} timestamp={timeSend} />;
-    }
-
     if (message.actionId > 1) {
         return <MessageCenter key={message.id}>{message.text}</MessageCenter>;
+    }
+
+    if (message.senderId === userId) {
+        return <MessageRowRight key={message.id} text={message.text} timestamp={timeSend} />;
     }
 
     const username =

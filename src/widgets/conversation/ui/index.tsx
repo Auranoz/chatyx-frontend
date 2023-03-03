@@ -3,9 +3,10 @@ import { styled } from '@mui/material/styles';
 
 import { useLazyCreateSocketChannelQuery } from 'entities/message';
 import { useAppSelector } from 'shared/hooks';
-import { ChatBox } from 'entities/chats';
+import { ChatBox, ChatTitle } from 'entities/chats';
 import MessagesView from 'features/messages-view';
 import MessageSend from 'features/message-send';
+import ChatOptions from 'features/chat-options';
 
 const Conversation: React.FC = () => {
     const token = useAppSelector(state => state.userAuthSlice);
@@ -15,8 +16,12 @@ const Conversation: React.FC = () => {
 
     if (selectedChat.id && selectedChat.name) {
         content = (
-            <ChatBox chat={selectedChat} bottom={<MessageSend selectedChatId={selectedChat.id} />}>
+            <ChatBox>
+                <ChatTitle chat={selectedChat}>
+                    <ChatOptions />
+                </ChatTitle>
                 <MessagesView selectedChatId={selectedChat.id} />
+                <MessageSend selectedChatId={selectedChat.id} />
             </ChatBox>
         );
     }

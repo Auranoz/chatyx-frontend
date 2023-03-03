@@ -9,3 +9,4 @@ export { userTokenReducer, userTokenAction } from './model/user-auth-info';
 
 export type { AuthInputData, UserLogin, UserRegister } from './consts/user-auth';
 export type { Statuses, Member } from './consts/member';
+export type { UserInfo, ApiUserInfo } from './consts/user-info';

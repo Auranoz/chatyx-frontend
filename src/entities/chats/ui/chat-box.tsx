@@ -1,25 +1,17 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 
-import { ChatInfo } from '../consts';
-
 interface Props {
-    chat: ChatInfo;
-    bottom: React.ReactNode;
+    children: JSX.Element[];
 }
 
-export const ChatBox: React.FC<PropsWithChildren<Props>> = ({ children, chat, bottom }) => {
-    const { name, description } = chat;
-
+export const ChatBox: React.FC<Props> = ({ children }) => {
     return (
         <Layout>
-            <ChatTitleWrapper>
-                <TitleWrapper>{name}</TitleWrapper>
-                <DescriptionWrapper>{description}</DescriptionWrapper>
-            </ChatTitleWrapper>
-            <ChildrenContentContainer>{children}</ChildrenContentContainer>
-            <BottomWrapper>{bottom}</BottomWrapper>
+            <ChatTitleWrapper>{children[0]}</ChatTitleWrapper>
+            <ChildrenContentContainer>{children[1]}</ChildrenContentContainer>
+            <BottomWrapper>{children[2]}</BottomWrapper>
         </Layout>
     );
 };
@@ -27,36 +19,23 @@ export const ChatBox: React.FC<PropsWithChildren<Props>> = ({ children, chat, bo
 const Layout = styled('div')`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border-radius: 0.5rem;
-    padding: 0 2rem;
     height: 100%;
-    background-color: lightgray;
+    background-color: transparent;
 `;
 
-const ChatTitleWrapper = styled('div')`
-    height: 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
-const TitleWrapper = styled('div')`
-    font-weight: bold;
-`;
-
-const DescriptionWrapper = styled('div')`
-    font-weight: normal;
-`;
-
-const ChildrenContentContainer = styled(Paper)`
-    height: 75%;
-    // border: 1px solid silver;
+const ChatTitleWrapper = styled(Paper)`
+    z-index: 1;
+    height: 3rem;
     border-radius: 0.5rem;
-    background-color: gainsboro;
+`;
+
+const ChildrenContentContainer = styled('div')`
+    height: calc(100% - (3rem + 3rem));
+    background-color: transparent;
 ` as typeof Paper;
 
-const BottomWrapper = styled('div')`
-    height: 10%;
+const BottomWrapper = styled(Paper)`
+    height: 3rem;
+    border-radius: 0.5rem;
 `;

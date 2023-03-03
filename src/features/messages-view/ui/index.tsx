@@ -126,6 +126,7 @@ export default MessagesView;
 
 const Layout = styled('div')`
     margin: 0 3rem;
+    padding: 0 0.5rem;
     height: 100%;
     overflow: hidden;
     overflow-y: scroll;

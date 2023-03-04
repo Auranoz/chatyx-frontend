@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { camelizeKeys } from 'humps';
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
@@ -11,22 +11,34 @@ import { useLazyGetChatsQuery } from '../api';
 
 const ChatsList: React.FC = () => {
     const token = useAppSelector(state => state.userAuthSlice);
-    const { selectChat } = useActions(selectedChatActions);
+    const { selectChat, reset } = useActions(selectedChatActions);
     const selectedChat = useAppSelector(state => state.selectedChatSlice);
     const [fetchChatList, { data, isLoading }] = useLazyGetChatsQuery();
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (token) {
             fetchChatList(token);
         }
     }, []);
 
+    useEffect(() => {
+        const keyDownHandler = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                reset();
+            }
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, []);
+
     if (isLoading) {
-        // Return skeleton
+        // TODO: Return skeleton
         return <>Loading...</>;
     }
-
-    // TODO: Add reset selected chat by Escape
 
     return (
         <Layout>

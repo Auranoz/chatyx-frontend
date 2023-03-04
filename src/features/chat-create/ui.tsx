@@ -13,12 +13,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { useActions, useAppSelector } from 'shared/hooks';
 import { chatCreateActions } from './model';
 import { useCreateChatMutation } from './api';
-import { ChatCreateProps, CreateChatInputParams } from './consts';
+import { ChatCreateProps } from './consts';
 
 const ChatCreate: React.FC<ChatCreateProps> = ({ onRefreshChats }) => {
     const [isOpenDialog, setOpenDialog] = React.useState(false);
     const { name, description } = useAppSelector(state => state.chatCreateSlice);
-    const token = useAppSelector(state => state.userAuthSlice);
     const { handleInputName, handleInputDescription, reset } = useActions(chatCreateActions);
     const [fetchCreateChat, { isSuccess }] = useCreateChatMutation();
 
@@ -32,12 +31,6 @@ const ChatCreate: React.FC<ChatCreateProps> = ({ onRefreshChats }) => {
             onRefreshChats();
         }
     }, [isSuccess]);
-
-    const preparedData: CreateChatInputParams = {
-        name,
-        description,
-        token
-    };
 
     return (
         <>
@@ -66,7 +59,7 @@ const ChatCreate: React.FC<ChatCreateProps> = ({ onRefreshChats }) => {
                     <Button
                         fullWidth
                         variant="contained"
-                        onClick={() => fetchCreateChat(preparedData)}
+                        onClick={() => fetchCreateChat({ name, description })}
                     >
                         Create
                     </Button>

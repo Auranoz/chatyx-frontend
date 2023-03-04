@@ -29,7 +29,6 @@ interface AddUserProps {
 const AddUser: React.FC<AddUserProps> = ({ open, onClose, usersList }) => {
     const [value, setValue] = useState<{ label: string; id: string } | null>(null);
     const [inputValue, setInputValue] = useState('');
-    const token = useAppSelector(state => state.userAuthSlice);
     const { id: chatId } = useAppSelector(state => state.selectedChatSlice);
     const [fetchAddUser, { isLoading, isSuccess, requestId }] = useAddChatUserMutation();
 
@@ -42,7 +41,7 @@ const AddUser: React.FC<AddUserProps> = ({ open, onClose, usersList }) => {
     const dataList = usersList?.map(item => ({ label: item.username, id: item.id })) ?? [];
 
     const handleAddUser = () => {
-        fetchAddUser({ token, data: { chatId, userId: value?.id ?? '' } });
+        fetchAddUser({ chatId, userId: value?.id ?? '' });
     };
 
     const handleClose = () => {

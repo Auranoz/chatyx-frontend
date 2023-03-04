@@ -36,8 +36,8 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
 
     useEffect(() => {
         changeChatReset();
-        getChatMessages({ token, data: { chatId: selectedChatId } });
-        getChatMembers({ token, data: selectedChatId });
+        getChatMessages({ chatId: selectedChatId });
+        getChatMembers(selectedChatId);
     }, [selectedChatId]);
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
 
     useEffect(() => {
         if (currOffset && isUpScrolling && !!apiMessages?.has_next) {
-            getChatMessages({ token, data: { chatId: selectedChatId, offset: currOffset } });
+            getChatMessages({ chatId: selectedChatId, offset: currOffset });
         }
     }, [currOffset, messagesList]);
 

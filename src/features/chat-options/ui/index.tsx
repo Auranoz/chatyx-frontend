@@ -6,7 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { useAppSelector } from 'shared/hooks';
 import AddUser from './add-user';
 import { useLazyGetUsersListQuery } from '../api';
 
@@ -16,7 +15,6 @@ const ChatOptions: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isOpenAddUser, setOpenAddUser] = useState(false);
     const isOpen = Boolean(anchorEl);
-    const token = useAppSelector(state => state.userAuthSlice);
     const [fetchGetUsers, { isSuccess, data, isFetching, requestId }] = useLazyGetUsersListQuery();
 
     useEffect(() => {
@@ -34,10 +32,6 @@ const ChatOptions: React.FC = () => {
         setAnchorEl(null);
     };
 
-    const handleOpenAddUser = () => {
-        fetchGetUsers({ token, data: undefined });
-    };
-
     const handleCloseAddUser = () => {
         setOpenAddUser(false);
     };
@@ -53,7 +47,7 @@ const ChatOptions: React.FC = () => {
                 onClick={handleCloseMenu}
                 anchorEl={anchorEl}
             >
-                <MenuItem onClick={handleOpenAddUser}>
+                <MenuItem onClick={() => fetchGetUsers()}>
                     <AddCircleOutlineRoundedIcon />
                     Add user
                 </MenuItem>

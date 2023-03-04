@@ -1,14 +1,14 @@
 import apiSlice from 'shared/api';
-import { ChatResponseItem, CreateChatInputParams } from './consts';
+import { CreateChatParams } from 'entities/chats';
+import { ChatResponseItem } from './consts';
 
 // TODO: Provides tags for auto-refresh chats in 'src/widgets/chats-list/api.ts'
 const chatCreateApi = apiSlice.injectEndpoints({
     endpoints: build => ({
-        createChat: build.mutation<ChatResponseItem, CreateChatInputParams>({
-            query: ({ token, ...params }) => ({
+        createChat: build.mutation<ChatResponseItem, CreateChatParams>({
+            query: params => ({
                 url: 'chats',
                 method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
                 body: params
             })
         })

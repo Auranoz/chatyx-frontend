@@ -10,15 +10,12 @@ import { ChatRow, selectedChatActions } from 'entities/chats';
 import { useLazyGetChatsQuery } from '../api';
 
 const ChatsList: React.FC = () => {
-    const token = useAppSelector(state => state.userAuthSlice);
     const { selectChat, reset } = useActions(selectedChatActions);
     const selectedChat = useAppSelector(state => state.selectedChatSlice);
     const [fetchChatList, { data, isLoading }] = useLazyGetChatsQuery();
 
     useEffect(() => {
-        if (token) {
-            fetchChatList(token);
-        }
+        fetchChatList();
     }, []);
 
     useEffect(() => {
@@ -59,7 +56,7 @@ const ChatsList: React.FC = () => {
                 </TransitionGroup>
             </ChatListWrapper>
             <ChatCreateWrapper>
-                <ChatCreate onRefreshChats={() => fetchChatList(token)} />
+                <ChatCreate onRefreshChats={() => fetchChatList()} />
             </ChatCreateWrapper>
         </Layout>
     );

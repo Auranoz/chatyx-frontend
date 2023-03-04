@@ -1,14 +1,18 @@
 /* eslint-disable */
 const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
 
+const env = dotenv.config().parsed;
+
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
-const devServerPort = process.env.CHATYX_DEV_PORT;
+const devServerPort = env.APP_PORT;
 
 const getOptimization = () => {
     const config = {
@@ -57,6 +61,10 @@ module.exports = {
     },
     devtool: isDev ? 'source-map' : false,
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(env),
+            'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production')
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'ChatyX',

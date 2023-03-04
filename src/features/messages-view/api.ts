@@ -1,4 +1,5 @@
 import apiSlice from 'shared/api';
+import { CHAT_MESSAGES_STEP } from 'shared/config';
 import { ApiChatMessagesParams, ApiChatMessagesResponse } from './consts/chat-messages';
 import { ApiChatMembersResponse } from './consts/chat-members';
 
@@ -8,7 +9,7 @@ const chatMessages = apiSlice.injectEndpoints({
             query: ({
                 chatId,
                 offset = 0,
-                limit = 20,
+                limit = CHAT_MESSAGES_STEP,
                 offsetDate = new Date().toISOString(),
                 direction = 'older'
             }) => ({

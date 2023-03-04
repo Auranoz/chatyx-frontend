@@ -1,5 +1,6 @@
 import apiSlice from 'shared/api';
 
+import { WS_URL } from 'shared/config';
 import { CreateMessageDTO, Message, StoreMessage } from './consts';
 import { blobToUint } from './utils';
 
@@ -10,7 +11,7 @@ const messageSocketApi = apiSlice.injectEndpoints({
         createSocketChannel: build.query<undefined, string>({
             queryFn: token => {
                 if (!socket) {
-                    socket = new WebSocket(`ws://localhost:8080?token=${token}`);
+                    socket = new WebSocket(`${WS_URL}?token=${token}`);
                 }
                 return { data: undefined };
             }

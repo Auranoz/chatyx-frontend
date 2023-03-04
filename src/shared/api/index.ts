@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { SERVER_URL } from '../config';
 
-// TODO: 1. get value of "baseURL" from ENV variables
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:8000/api/',
+    baseUrl: `${SERVER_URL}/api/`,
     prepareHeaders: (headers, { getState }) => {
         const user = (getState() as RootState).userAuthSlice;
 

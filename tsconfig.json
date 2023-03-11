@@ -24,8 +24,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "esModuleInterop": true,
-        "paths": {
-            "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
-        }
+        "types": ["node", "jest", "@testing-library/jest-dom"]
     }
 }

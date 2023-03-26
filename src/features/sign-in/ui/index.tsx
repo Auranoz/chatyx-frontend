@@ -39,9 +39,11 @@ const SignIn: React.FC = () => {
                 label="Username"
                 value={username}
                 onChange={e => handleInputLogin(e.target.value)}
+                name="username"
             />
             <TextField
                 type="password"
+                name="password"
                 fullWidth
                 label="Password"
                 value={password}

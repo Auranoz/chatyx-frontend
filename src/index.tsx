@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from 'app';
-import { store } from './app/store';
+import { setupStore } from './app/store';
 import ErrorBoundary from './shared/ui/error-boundary';
 
 const node = document.createElement('div');
@@ -13,7 +13,7 @@ document.body.appendChild(node);
 
 const root = createRoot(node);
 root.render(
-    <Provider store={store}>
+    <Provider store={setupStore()}>
         <ErrorBoundary>
             <BrowserRouter>
                 <App />

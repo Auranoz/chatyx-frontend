@@ -1,9 +1,7 @@
 # Chatyx-frontend
-***
 ![total-lines](https://img.shields.io/tokei/lines/github/Chatyx/frontend)
 
 ## Table of contents:
-***
 - [Architecture](#Architecture)
 - [Quick start](#quick_start)
 - [Configuration](#Configuration)
@@ -11,14 +9,12 @@
   - [Generate code from protobuf](#generate_protobuf)
 
 ## Architecture
-***
 ### Feature-Sliced Design
 The main idea consists of unidirectional data stream.
 Downstream components can't use upstream ones.
 <img src="src/shared/assets/images/fsd.png" alt="photo example"></img>
 
 ## <a name="quick_start"></a>  Quick start
-***
 ### Using single docker container
 TODO
 
@@ -65,7 +61,6 @@ APP_PORT=3000
 ```
 
 ## Additional
-***
 #### <a name="generate_protobuf"></a> Generate code from protobuf:
 
 If you want to regenerate code from protobuf, you can run this

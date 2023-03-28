@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Fragment } from 'react';
 import { styled } from '@mui/material/styles';
 import { Decamelized } from 'humps';
 
@@ -27,9 +27,9 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
     const { data: socketMessages } = useListenSocketChannelQuery();
     const currentChatSocketMessages = socketMessages?.filter(msg => msg.chatId === selectedChatId);
 
-    const messagesEndRef = useRef<null | HTMLDivElement>();
-    const listInnerRef = useRef<null | HTMLDivElement>();
-    const messageScrollRef = useRef<null | HTMLDivElement>();
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const listInnerRef = useRef<HTMLDivElement>(null);
+    const messageScrollRef = useRef<HTMLDivElement>(null);
 
     const userId = parseToken(token).sub;
     const contentMessages = buildListMessages(messagesList, currentChatSocketMessages);
@@ -102,7 +102,7 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
         <Layout ref={listInnerRef} onScroll={onScroll}>
             {contentMessages.length > 0 ? (
                 contentMessages.map(msg => (
-                    <>
+                    <Fragment key={msg.id}>
                         <MessageItem
                             key={msg.id}
                             message={msg}
@@ -112,7 +112,7 @@ const MessagesView: React.FC<MessageViewProps> = ({ selectedChatId }) => {
                         {msg.id === idScrollMsg && (
                             <MessagesEnd key={`scroll-${msg.id}`} ref={messageScrollRef} />
                         )}
-                    </>
+                    </Fragment>
                 ))
             ) : (
                 <MessageCenter>There is no messages yet</MessageCenter>

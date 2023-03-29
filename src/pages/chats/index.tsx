@@ -14,8 +14,7 @@ const ChatsPage: React.FC = () => (
 export default ChatsPage;
 
 const Layout = styled('div')`
+    display: flex;
     height: 100vh;
-    display: grid;
-    grid-template-areas: 'chats-list conversation';
-    grid-template-columns: 400px 1fr;
+    width: 100%;
 `;

@@ -32,15 +32,31 @@ const Conversation: React.FC = () => {
         }
     }, [isSuccess]);
 
-    return <Layout>{content}</Layout>;
+    return <Layout selectedChat={selectedChat.id}>{content}</Layout>;
 };
 
 export default Conversation;
 
-const Layout = styled('div')`
-    grid-area: conversation;
-    max-height: 100vh;
+const Layout = styled('div', { shouldForwardProp: propName => propName !== 'selectedChat' })<{
+    selectedChat?: string;
+}>`
+    height: 100vh;
     background: rgb(210, 210, 210);
     background: radial-gradient(circle, rgba(210, 210, 210, 1) 0%, rgba(251, 251, 251, 1) 100%);
     border-radius: 0.5rem;
+
+    @media screen and (min-width: 971px) {
+        width: calc(100% - 400px);
+    }
+
+    @media screen and (max-width: 970px) {
+        ${({ selectedChat }) =>
+            selectedChat
+                ? {
+                      width: '100%'
+                  }
+                : {
+                      display: 'none'
+                  }}
+    }
 `;

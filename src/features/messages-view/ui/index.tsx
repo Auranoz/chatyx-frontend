@@ -130,6 +130,14 @@ const Layout = styled('div')`
     height: 100%;
     overflow: hidden;
     overflow-y: scroll;
+
+    @media screen and (min-width: 1201px), screen and (max-width: 970px) and (min-width: 601px) {
+        margin: 0 3rem;
+    }
+
+    @media screen and (max-width: 1200px) and (min-width: 971px), screen and (max-width: 600px) {
+        margin: 0;
+    }
 `;
 
 const MessagesEnd = styled('div')``;

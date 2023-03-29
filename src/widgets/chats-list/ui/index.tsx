@@ -38,7 +38,7 @@ const ChatsList: React.FC = () => {
     }
 
     return (
-        <Layout>
+        <Layout selectedChat={selectedChat.id}>
             <ChatListWrapper>
                 <TransitionGroup>
                     {!!data && data.list.length === 0
@@ -64,14 +64,30 @@ const ChatsList: React.FC = () => {
 
 export default ChatsList;
 
-const Layout = styled('div')`
-    grid-area: chats-list;
-    max-height: 100vh;
+const Layout = styled('div', { shouldForwardProp: propName => propName !== 'selectedChat' })<{
+    selectedChat?: string;
+}>`
+    height: 100vh;
     position: relative;
 
     border-right: 1px solid #9e9e9e;
     border-radius: 0.5rem;
     background-color: lightgray;
+
+    @media screen and (min-width: 971px) {
+        width: 400px;
+    }
+
+    @media screen and (max-width: 970px) {
+        ${({ selectedChat }) =>
+            selectedChat
+                ? {
+                      display: 'none'
+                  }
+                : {
+                      width: '100%'
+                  }}
+    }
 `;
 
 const ChatListWrapper = styled('div')`
